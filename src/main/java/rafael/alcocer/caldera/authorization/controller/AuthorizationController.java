@@ -21,6 +21,8 @@ import javax.crypto.SecretKey;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,7 +43,7 @@ public class AuthorizationController {
     }
 
     @PostMapping("authorization")
-    public User login(@RequestBody AuthorizationRequest request) {
+    public ResponseEntity<?> login(@RequestBody AuthorizationRequest request) {
         LOGGER.info("##### username: " + request.getUsername());
         LOGGER.info("##### password: " + request.getPassword());
         LOGGER.info("##### webSecurityConfiguration.getSecretKey(): " + webSecurityConfiguration.getSecretKey());
@@ -69,6 +71,6 @@ public class AuthorizationController {
         user.setUsername(request.getUsername());
         user.setJwt(jwt);
 
-        return user;
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 }
