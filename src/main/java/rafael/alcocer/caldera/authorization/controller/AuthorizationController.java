@@ -27,20 +27,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import lombok.RequiredArgsConstructor;
 import rafael.alcocer.caldera.authorization.configuration.WebSecurityConfiguration;
 import rafael.alcocer.caldera.authorization.model.User;
 import rafael.alcocer.caldera.authorization.payload.request.AuthorizationRequest;
 import rafael.alcocer.caldera.authorization.utils.Utils;
 
+@RequiredArgsConstructor
 @RestController
 public class AuthorizationController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AuthorizationController.class);
     private final WebSecurityConfiguration webSecurityConfiguration;
-
-    public AuthorizationController(WebSecurityConfiguration webSecurityConfiguration) {
-        this.webSecurityConfiguration = webSecurityConfiguration;
-    }
 
     @PostMapping("authorization")
     public ResponseEntity<?> login(@RequestBody AuthorizationRequest request) {
